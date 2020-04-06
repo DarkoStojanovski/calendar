@@ -1,6 +1,9 @@
 $(document).ready(function () {
     var calendar = $(".calendar");
 
+    var timeSections;
+    var textSections;
+
     //-----------------------------------------------------------------
     
     function headerDate() {
@@ -17,11 +20,11 @@ $(document).ready(function () {
             timeBlock.addClass("row m-2 bg-light border border-dark rounded");
             
             var timeSection = $("<div>");
-            timeSection.addClass("col-2 p-4 bg-light border-right border-dark");
-            timeSection.text(moment(i, 'H').format('LT'));
+            timeSection.addClass("col-2 p-4 bg-light border-right border-dark timeSection");
+            timeSection.text(moment(i, 'H').format('LT')); // i = 13 format = 1:00 PM
             
             var textSection = $("<div>");
-            textSection.addClass("col-8 bg-light");
+            textSection.addClass("col-8 textSection");
 
             var saveSection = $("<div>");
             saveSection.addClass("col-2 p-4 bg-primary text-light border-left border-dark");
@@ -33,7 +36,28 @@ $(document).ready(function () {
 
             calendar.append(timeBlock);
         }
-    
+        timeSections = $(".timeSection");
+        textSections = $(".textSection");
+    }
+
+    function addColor() {
+        
+        var hour = parseInt(moment().format("H"));
+
+        for (let i = 0; i < timeSections.length; i++) {
+            var time = $(timeSections[i]).text();
+            var time24 = parseInt(moment(time, 'LT').format('H'));
+
+            if ( hour < time24 ) {
+                $(textSections[i]).addClass("future");
+            }
+            if ( hour > time24) {
+                $(textSections[i]).addClass("past");
+            }
+            if ( hour === time24){
+                $(textSections[i]).addClass("present");
+            }
+        }
     }
     
     //-----------------------------------------------------------------
@@ -46,8 +70,9 @@ $(document).ready(function () {
         createCalendar();
 
         // add color to the calendar
+        addColor();
 
-        // load all saved events
+        // render all saved events
     }
 
     main();
