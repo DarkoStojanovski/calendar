@@ -11,6 +11,9 @@ $(document).ready(function () {
         $("#currentDay").text(date);
     }
     
+
+
+    
     function createCalendar() {
         var start = 9;
         var end = 17;
@@ -26,11 +29,40 @@ $(document).ready(function () {
             var textSection = $("<div>");
             textSection.addClass("col-8 textSection");
 
+            // do first
+            //textSection.click();
+            let input = $("<input>");
+            input.addClass('form-control');
+            input.attr("id", "hour-" +i);
+            input.change(function(event){
+                console.log(event)
+            });
+            textSection.append(input);
+
+
+
+
+
             var saveSection = $("<div>");
             saveSection.addClass("col-2 p-4 bg-primary text-light border-left border-dark");
+            saveSection.attr("id", "hour-" +i);
             var saveButton = $("<i>");
             saveButton.addClass("fas fa-save fa-2x");
             saveSection.append(saveButton);
+
+            
+            // do second
+            saveSection.on("click", function(){
+                var timeSlote = $(this).attr("id");
+                var siblingSlot = $(this).siblings(".textSection");
+                var chiled = siblingSlot.children();
+                var input = chiled.val();
+                localStorage.setItem(timeSlote, input);
+            }); 
+
+            
+
+
 
             timeBlock.append(timeSection, textSection, saveSection);
 
@@ -60,6 +92,19 @@ $(document).ready(function () {
         }
     }
     
+        function populate() {
+            $('#hour- 9').val(localStorage.getItem("hour- 9"));
+            $('#hour-10').val(localStorage.getItem("hour-10"));
+            $('#hour-11').val(localStorage.getItem("hour-11"));
+            $('#hour-12').val(localStorage.getItem("hour-12"));
+            $('#hour-13').val(localStorage.getItem("hour-13"));
+            $('#hour-14').val(localStorage.getItem("hour-14"));
+            $('#hour-15').val(localStorage.getItem("hour-15"));
+            $('#hour-16').val(localStorage.getItem("hour-16"));
+            $('#hour-17').val(localStorage.getItem("hour-17"));
+            
+        }
+
     //-----------------------------------------------------------------
 
     function main() {
@@ -73,6 +118,7 @@ $(document).ready(function () {
         addColor();
 
         // render all saved events
+        populate();
     }
 
     main();
