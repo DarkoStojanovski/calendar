@@ -29,7 +29,7 @@ $(document).ready(function () {
             var textSection = $("<div>");
             textSection.addClass("col-8 textSection");
 
-            // do first
+            
             //textSection.click();
             let input = $("<input>");
             input.addClass('form-control');
@@ -93,7 +93,7 @@ $(document).ready(function () {
     }
     
         function populate() {
-            $('#hour- 9').val(localStorage.getItem("hour- 9"));
+            $('#hour-9').val(localStorage.getItem("hour-9"));
             $('#hour-10').val(localStorage.getItem("hour-10"));
             $('#hour-11').val(localStorage.getItem("hour-11"));
             $('#hour-12').val(localStorage.getItem("hour-12"));
